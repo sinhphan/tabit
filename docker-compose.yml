@@ -1,0 +1,29 @@
+version: "3.8"
+services:
+  # Database
+  tabistdb:
+    platform: linux/x86_64
+    image: mysql:5.7
+    container_name: tabistdb
+    restart: always
+    volumes:
+      - ~/tabist/volumes/mysql:/var/lib/mysql
+    environment:
+      MYSQL_USER: "thanhna"
+      MYSQL_PASSWORD: "123456"
+      MYSQL_ROOT_PASSWORD: "8888"
+    ports:
+      - "33061:3306"
+  # phpmyadmin
+  # phpmyadmin:
+  #   build: ~/tabist/services/phpmyadmin
+  #   environment:
+  #     PMA_ARBITRARY: 1
+  #     MYSQL_USER: "thanhna"
+  #     MYSQL_PASSWORD: "123456"
+  #     MYSQL_ROOT_PASSWORD: "8888"
+  #     UPLOAD_LIMIT: 100000M
+  #   ports:
+  #     - "8888:80"
+  #   depends_on:
+  #     - "tabistdb"

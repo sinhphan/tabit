@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "ES2019",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true,
+    "skipLibCheck": true,
+    "paths": {
+      "@/*": ["src/*"],
+      "@Common/*": ["src/common/*"],
+      "@Util/*": ["src/common/util/*"],
+      "@Entities/*": ["src/entities/*"],
+      "@Config/*": ["src/common/config/*"],
+      "@Constant/*": ["src/common/constant/*"],
+      "@Validator/*": ["src/common/validator/*"],
+      "@Decorator/*": ["src/common/decorator/*"],
+      "@Exception/*": ["src/common/exception/*"],
+    }
+  }
+}
