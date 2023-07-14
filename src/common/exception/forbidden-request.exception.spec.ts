@@ -1,5 +1,5 @@
-import { HttpException, HttpStatus } from "@nestjs/common";
-import { CForbiddenRequestException } from "./forbidden-request.exception";
+import { HttpException, HttpStatus } from '@nestjs/common';
+import { CForbiddenRequestException } from './forbidden-request.exception';
 
 describe('CForbiddenRequestException', () => {
   it('should create an instance with default values', () => {

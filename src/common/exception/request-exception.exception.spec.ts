@@ -1,5 +1,5 @@
-import { HttpException, HttpStatus } from "@nestjs/common";
-import { RequestException } from "./request-exception.exception";
+import { HttpException, HttpStatus } from '@nestjs/common';
+import { RequestException } from './request-exception.exception';
 
 describe('RequestException', () => {
   it('should create an instance with default values', () => {
@@ -32,5 +32,3 @@ describe('RequestException', () => {
 
   // Add more test cases to cover different scenarios and edge cases
 });
-
-

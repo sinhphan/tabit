@@ -1,4 +1,9 @@
-import { PlayerCreateDto, PlayerDto, PlayerUpdateDto, PlayerUsernameDto } from "./index.dto";
+import {
+  PlayerCreateDto,
+  PlayerDto,
+  PlayerUpdateDto,
+  PlayerUsernameDto,
+} from './index.dto';
 
 describe('PlayerDto', () => {
   it('should have the correct properties with their configurations', () => {
@@ -7,12 +12,12 @@ describe('PlayerDto', () => {
     expect(dto.id).toBeUndefined();
     expect(dto.username).toBeUndefined();
 
-    const idMetadata = {"required": false};
+    const idMetadata = { required: false };
     expect(idMetadata).toEqual({
       required: false,
     });
 
-    const usernameMetadata = {"required": true};
+    const usernameMetadata = { required: true };
     expect(usernameMetadata).toEqual({
       required: true,
     });
@@ -27,7 +32,7 @@ describe('PlayerUsernameDto', () => {
 
     expect(dto.username).toBeUndefined();
 
-    const usernameMetadata = {"required": true}
+    const usernameMetadata = { required: true };
     expect(usernameMetadata).toEqual({
       required: true,
     });
@@ -45,14 +50,14 @@ describe('PlayerCreateDto', () => {
 
     const usernameMetadata = {
       required: true,
-    }
+    };
     expect(usernameMetadata).toEqual({
       required: true,
     });
 
     const scoreMetadata = {
       required: true,
-    }
+    };
     expect(scoreMetadata).toEqual({
       required: true,
     });
@@ -70,10 +75,9 @@ describe('PlayerUpdateDto', () => {
 
     const usernameMetadata = {
       required: true,
-    }
+    };
     expect(usernameMetadata).toEqual({
       required: true,
     });
-
   });
 });

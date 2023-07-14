@@ -1,5 +1,5 @@
-import { HttpException, HttpStatus } from "@nestjs/common";
-import { CBadRequestException } from "./bad-request.exception";
+import { HttpException, HttpStatus } from '@nestjs/common';
+import { CBadRequestException } from './bad-request.exception';
 
 describe('CBadRequestException', () => {
   it('should create an instance with default values', () => {
@@ -22,11 +22,9 @@ describe('CBadRequestException', () => {
     expect(exception.getStatus()).toEqual(HttpStatus.BAD_REQUEST);
     expect(exception.getResponse()).toEqual({
       msg: 'Test message',
-      data: []
+      data: [],
     });
   });
 
   // Add more test cases to cover different scenarios and edge cases
 });
-
-

@@ -10,14 +10,20 @@ describe('appConfig', () => {
   });
 
   it('should have correct uploadDir', () => {
-    expect(appConfig().uploadDir).toEqual(process.env.UPLOAD_DIR || './uploads');
+    expect(appConfig().uploadDir).toEqual(
+      process.env.UPLOAD_DIR || './uploads',
+    );
   });
 
   it('should have correct urlImg', () => {
-    expect(appConfig().urlImg).toEqual(process.env.IMAGE_URL || 'http://localhost:3000');
+    expect(appConfig().urlImg).toEqual(
+      process.env.IMAGE_URL || 'http://localhost:3000',
+    );
   });
 
   it('should have correct host', () => {
-    expect(appConfig().host).toEqual(process.env.HOST || 'http://localhost:3000');
+    expect(appConfig().host).toEqual(
+      process.env.HOST || 'http://localhost:3000',
+    );
   });
 });

@@ -1,4 +1,4 @@
-import { addressFormatter, dateFormatter, inseeFormatter } from ".";
+import { addressFormatter, dateFormatter, inseeFormatter } from '.';
 
 describe('addressFormatter', () => {
   it('should format the address correctly', () => {
@@ -12,7 +12,9 @@ describe('addressFormatter', () => {
 
     const formattedAddress = addressFormatter(address);
 
-    expect(formattedAddress).toEqual('123 Main St Apt 4, 12345 Cityville, Country');
+    expect(formattedAddress).toEqual(
+      '123 Main St Apt 4, 12345 Cityville, Country',
+    );
   });
 
   // Add more test cases to cover different scenarios and edge cases for addressFormatter

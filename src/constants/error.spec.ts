@@ -1,4 +1,4 @@
-import { ErrorCode, HttpStatus } from "./error";
+import { ErrorCode, HttpStatus } from './error';
 
 describe('ErrorCode', () => {
   it('should have correct values', () => {
@@ -6,7 +6,9 @@ describe('ErrorCode', () => {
     expect(ErrorCode.NOT_FOUND).toEqual('NOT FOUND');
     expect(ErrorCode.NOT_FOUND_PLAYER).toEqual('NOT_FOUND_PLAYER');
     expect(ErrorCode.STATUS_NOT_FOUND).toEqual('404');
-    expect(ErrorCode.STATUS_INTERNAL_SERVER_ERROR).toEqual('STATUS_INTERNAL_SERVER_ERROR');
+    expect(ErrorCode.STATUS_INTERNAL_SERVER_ERROR).toEqual(
+      'STATUS_INTERNAL_SERVER_ERROR',
+    );
   });
 });
 

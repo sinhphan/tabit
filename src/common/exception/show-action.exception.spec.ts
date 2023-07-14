@@ -1,5 +1,5 @@
-import { HttpException, HttpStatus } from "@nestjs/common";
-import { ShowActionExceptionFilter } from "./show-action.exception";
+import { HttpException, HttpStatus } from '@nestjs/common';
+import { ShowActionExceptionFilter } from './show-action.exception';
 
 describe('ShowActionExceptionFilter', () => {
   it('should return the response body with the correct status code and exception', () => {
@@ -17,7 +17,10 @@ describe('ShowActionExceptionFilter', () => {
 
   it('should return the response body with the status code and exception from HttpException', () => {
     const filter = new ShowActionExceptionFilter();
-    const httpException = new HttpException('Test exception', HttpStatus.BAD_REQUEST);
+    const httpException = new HttpException(
+      'Test exception',
+      HttpStatus.BAD_REQUEST,
+    );
 
     const result = filter.catch(httpException);
 

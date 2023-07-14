@@ -1,5 +1,8 @@
-import { HttpException, HttpStatus } from "@nestjs/common";
-import { BadRequestHttpException, CNotFoundRequestException } from "./notfound-request.exception";
+import { HttpException, HttpStatus } from '@nestjs/common';
+import {
+  BadRequestHttpException,
+  CNotFoundRequestException,
+} from './notfound-request.exception';
 
 describe('CNotFoundRequestException', () => {
   it('should create an instance with default values', () => {
