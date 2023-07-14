@@ -17,7 +17,7 @@ export class PlayerService {
   constructor(
     @InjectRepository(PlayerEntity)
     private playerRepository: Repository<PlayerEntity>,
-  ) {}
+  ) { }
 
   async fetch(req: PlayerDto): Promise<PlayerWithPaginationRes> {
     const usernames = req?.username.split(',');
@@ -121,9 +121,11 @@ export class PlayerService {
   }
 
   async store(player: PlayerCreateDto): Promise<PlayerRes> {
-    if (!player?.username)
-      throw new CBadRequestException('Username is invalid');
-    if (!player?.score) throw new CBadRequestException('Score is invalid');
+    const { username, score } = player;
+    const numberRex = /^-?\d+$/;
+    const numberInStringRex = /\d/;
+    if (!player?.username || numberInStringRex.test(username)) throw new CBadRequestException('Username is invalid');
+    if (!player?.score || !numberRex.test(`${score}`)) throw new CBadRequestException('Score is invalid');
     try {
       const data = await this.playerRepository.save({
         ...player,
