@@ -9,25 +9,24 @@ import {
 
 @Entity('dish')
 export class DishEntity {
-  @PrimaryGeneratedColumn('increment', {})
+  @PrimaryGeneratedColumn('increment')
   id?: number;
 
   @Column({
-    type: 'varchar',
-    length: 255,
+    type: 'text',
     nullable: false,
   })
   name?: string;
 
   @Column({
+    type: 'text',
     nullable: false,
-    default: 0,
   })
   description?: string;
 
   @Column({
+    type: 'text',
     nullable: true,
-    default: 0,
   })
   image?: string;
 

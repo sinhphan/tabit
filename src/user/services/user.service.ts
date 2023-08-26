@@ -16,7 +16,7 @@ export class UserService {
   }
 
   async getUserById(id: number): Promise<UserEntity> {
-    let user: UserEntity = await this.userRepository.findOne({
+    const user: UserEntity = await this.userRepository.findOne({
       where: {
         id,
       },
@@ -30,7 +30,7 @@ export class UserService {
 
   // For Auth
   async getUserByUsername(username: string): Promise<UserEntity> {
-    let user: UserEntity = await this.userRepository.findOne({
+    const user: UserEntity = await this.userRepository.findOne({
       where: { username },
     });
     if (!user) return null;
@@ -38,7 +38,7 @@ export class UserService {
   }
 
   async createUser(createUserDto: CreateUserDto) {
-    let newUser = new UserEntity();
+    const newUser = new UserEntity();
     const saltOrRounds = 10;
     newUser.username = createUserDto.username;
     newUser.password = await bcrypt.hash(createUserDto.password, saltOrRounds);
@@ -47,13 +47,13 @@ export class UserService {
   }
 
   async removeUser(id: number) {
-    let user: UserEntity = await this.getUserById(id);
+    const user: UserEntity = await this.getUserById(id);
 
     return await this.userRepository.remove(user);
   }
 
   async updateUser(id: number, updateUserDto: UpdateUserDto) {
-    let user: UserEntity = await this.getUserById(id);
+    const user: UserEntity = await this.getUserById(id);
 
     user.password = updateUserDto.password;
 

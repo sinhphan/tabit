@@ -5,7 +5,8 @@ import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { EntityModule } from './entities';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
-import { CacheModule } from '@nestjs/cache-manager';
+import { DishModule } from './dish/dish.module';
+import { RateModule } from './rate/rate.module';
 
 @Module({
   imports: [
@@ -23,7 +24,9 @@ import { CacheModule } from '@nestjs/cache-manager';
     }),
     EntityModule,
     UserModule,
-    AuthModule
+    AuthModule,
+    DishModule,
+    RateModule,
   ],
 })
 export class AppModule {}

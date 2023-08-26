@@ -11,7 +11,7 @@ import { RefreshSessionEntity } from './refreshSession.entity';
 
 @Entity('user')
 export class UserEntity {
-  @PrimaryGeneratedColumn('increment', {})
+  @PrimaryGeneratedColumn('increment')
   id?: number;
 
   @Column({
@@ -22,6 +22,8 @@ export class UserEntity {
   username?: string;
 
   @Column({
+    type: 'varchar',
+    length: '255',
     nullable: false,
     default: 0,
   })
@@ -31,7 +33,7 @@ export class UserEntity {
     () => RefreshSessionEntity,
     (refreshSession) => refreshSession.user,
   )
-  sessions: RefreshSessionEntity[];
+  sessions?: RefreshSessionEntity[];
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt?: string;

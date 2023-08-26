@@ -8,7 +8,6 @@ import { AuthController } from './auth.controller';
 import { UserService } from '@/user/services/user.service';
 import { UserEntity } from '@/entities/user.entity';
 import { PassportModule } from '@nestjs/passport';
-import { CacheModule } from '@nestjs/cache-manager';
 import appConfig from '@/common/config/app.config';
 
 @Module({

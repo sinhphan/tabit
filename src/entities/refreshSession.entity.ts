@@ -13,17 +13,22 @@ import { UserEntity } from './user.entity';
 @Unique('refreshToken', ['refreshToken'])
 export class RefreshSessionEntity {
   @PrimaryGeneratedColumn()
-  id: number;
+  id?: number;
 
   @ManyToOne(() => UserEntity, (user) => user.sessions)
-  user: UserEntity;
+  user?: UserEntity;
+
+  @Column({
+    type: 'varchar',
+    length: '255',
+  })
+  refreshToken?: string;
+
+  @Column({
+    type: 'integer',
+  })
+  expiresIn?: number;
 
   @Column()
-  refreshToken: string;
-
-  @Column()
-  expiresIn: number;
-
-  @Column()
-  createdAt: number;
+  createdAt?: number;
 }
