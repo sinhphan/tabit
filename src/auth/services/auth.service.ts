@@ -6,8 +6,12 @@ import { Repository } from 'typeorm';
 import { ConfigService } from '@nestjs/config';
 import { RefreshSessionEntity } from '@/entities/refreshSession.entity';
 import { UserService } from '@/user/services/user.service';
-import { nanoid } from 'nanoid';
 import { UserEntity } from '@/entities/user.entity';
+import { v4 as uuidv4 } from 'uuid';
+import { CBadRequestException } from '@/common/exception/bad-request.exception';
+import { ErrorCode } from '@/constants/error';
+import * as bcrypt from 'bcrypt';
+import { UserLoginDto } from '../dto/auth.dto';
 
 @Injectable()
 export class AuthService {
@@ -19,10 +23,14 @@ export class AuthService {
     private configService: ConfigService,
   ) {}
 
-  async validateUser(username: string, pass: string): Promise<any> {
+  async validateUser({ username, password }: UserLoginDto): Promise<any> {
     const user = await this.userService.getUserByUsername(username);
+    if (!user) {
+      return null;
+    }
 
-    if (user && user.password === pass) {
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (isMatch) {
       const { password, ...result } = user;
       return result;
     }
@@ -30,20 +38,28 @@ export class AuthService {
     return null;
   }
 
-  async login(user: any) {
-    const accessToken = await this.generateAccessToken({
-      id: user.id,
-      username: user.username,
-    });
-    const refreshToken = await this.generateRefreshToken({ id: user.id });
+  async login(payload: UserLoginDto) {
+    const user = await this.validateUser(payload);
+    if (!user) {
+      throw new CBadRequestException(ErrorCode.PASSWORD_NOT_MATCH);
+    }
+    try {
+      const accessToken = await this.generateAccessToken({
+        id: user.id,
+        username: user.username,
+      });
+      const refreshToken = await this.generateRefreshToken({ id: user.id });
 
-    await this.createRefreshSession(user.id, refreshToken);
+      await this.createRefreshSession(user.id, refreshToken);
 
-    return {
-      user,
-      accessToken,
-      refreshToken,
-    };
+      return {
+        user,
+        accessToken,
+        refreshToken,
+      };
+    } catch (error) {
+      throw new CBadRequestException(ErrorCode.LOGIN_FAIL);
+    }
   }
 
   async createRefreshSession(userId: any, token: string) {
@@ -63,32 +79,16 @@ export class AuthService {
     id: number;
     username: string;
   }): Promise<string> {
-    const opts: SignOptions = {
-      expiresIn: this.configService.get<string>('JWT_ACCESS_EXPIRESIN'),
-      subject: String(payload.id),
-    };
-
-    return this.jwtService.signAsync(
-      {
-        username: payload.username,
-        sid: nanoid(), // token uniqueness
-      },
-      opts,
-    );
+    return this.jwtService.signAsync({
+      sub: payload.id,
+      username: payload.username,
+    });
   }
 
   async generateRefreshToken(payload: { id: number }): Promise<string> {
-    const opts: SignOptions = {
-      expiresIn: this.configService.get<string>('JWT_REFRESH_EXPIRESIN'),
-      subject: String(payload.id),
-    };
-
-    return this.jwtService.signAsync(
-      {
-        sid: nanoid(), // token uniqueness
-      },
-      opts,
-    );
+    return this.jwtService.signAsync({
+      sub: payload.id,
+    });
   }
 
   async refreshToken(token: string) {

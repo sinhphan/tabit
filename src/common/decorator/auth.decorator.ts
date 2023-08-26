@@ -1,14 +1,12 @@
 import {
+  CanActivate,
   ExecutionContext,
-  Inject,
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
-import { Cache } from 'cache-manager';
-import { AuthGuard } from '@nestjs/passport';
 import { JwtPayload } from 'jsonwebtoken';
-import { CACHE_MANAGER } from '@nestjs/cache-manager';
-import { JWT_LOG_OUT } from '@/constants/jwt';
+import { JwtService } from '@nestjs/jwt';
+import appConfig from '../config/app.config';
 
 export interface RefreshJwt extends JwtPayload {
   id: number;
@@ -17,9 +15,8 @@ export interface RefreshJwt extends JwtPayload {
 }
 
 @Injectable()
-export class TokenGuard extends AuthGuard('jwt') {
-  @Inject(CACHE_MANAGER)
-  protected cacheManager: Cache;
+export class TokenGuard implements CanActivate {
+  constructor(private jwtService: JwtService) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = this.getRequest(context);
@@ -36,12 +33,12 @@ export class TokenGuard extends AuthGuard('jwt') {
       throw new UnauthorizedException();
     }
 
-    const value = await this.cacheManager.get(`${JWT_LOG_OUT}.${tokens[1]}`);
-    if (value && value === JWT_LOG_OUT) {
-      throw new UnauthorizedException();
-    }
-    const x = await super.canActivate(context);
-    if (!x) {
+    try {
+      const payload = await this.jwtService.verifyAsync(tokens[1], {
+        secret: appConfig().jwt_constants,
+      });
+      request['user'] = payload;
+    } catch (e) {
       throw new UnauthorizedException();
     }
     return true;

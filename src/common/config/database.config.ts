@@ -39,7 +39,7 @@ export default registerAs('database', (): TypeOrmModuleOptions => {
       username: process.env.DATABASE_MASTER_USERNAME || 'root',
       password: process.env.DATABASE_MASTER_PASSWROD || 'test',
       database: process.env.DATABASE_MASTER_NAME || 'dental',
-      synchronize: false,
+      synchronize: true,
       logging: process.env.DATABASE_LOGGING !== 'false' ? true : ['error'],
       autoLoadEntities: true,
       entities: [join(__dirname, '**/**.entity{.ts,.js}')],

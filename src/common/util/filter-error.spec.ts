@@ -12,26 +12,6 @@ describe('filterError', () => {
 
     expect(result).toEqual([{ name: { constraints: {}, contexts: {} } }]);
   });
-
-  // it('filters out null and empty errors recursively', () => {
-  //   const errors = [
-  //     { property: 'user', constraints: {}, contexts: {} },
-  //     { property: 'user.name', constraints: {}, contexts: {} },
-  //     null,
-  //     { property: 'user.age', constraints: {}, contexts: {} },
-  //   ];
-
-  //   const result = filterError(errors);
-
-  //   expect(result).toEqual([
-  //     {
-  //       user: {
-  //         name: { constraints: {}, contexts: {} },
-  //         age: { constraints: {}, contexts: {} },
-  //       },
-  //     },
-  //   ]);
-  // });
 });
 
 describe('errFormat', () => {
