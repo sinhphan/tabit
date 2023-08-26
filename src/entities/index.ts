@@ -1,8 +1,12 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { PlayerEntity } from 'src/entities/player.entity';
+import { UserEntity } from './user.entity';
+import { DishEntity } from './dish.entity';
+import { RefreshSessionEntity } from './refreshSession.entity';
 @Module({
-  imports: [TypeOrmModule.forFeature([PlayerEntity])],
+  imports: [
+    TypeOrmModule.forFeature([UserEntity, DishEntity, RefreshSessionEntity]),
+  ],
   controllers: [],
   providers: [],
 })

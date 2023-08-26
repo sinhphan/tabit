@@ -3,7 +3,6 @@ import configuration from './common/config';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { EntityModule } from './entities';
-import { PlayerModule } from './player/player.module';
 
 @Module({
   imports: [
@@ -20,7 +19,6 @@ import { PlayerModule } from './player/player.module';
       },
     }),
     EntityModule,
-    PlayerModule,
   ],
 })
 export class AppModule {}

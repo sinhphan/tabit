@@ -3,12 +3,14 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { RefreshSessionEntity } from './refreshSession.entity';
 
-@Entity('players')
-export class PlayerEntity {
+@Entity('user')
+export class UserEntity {
   @PrimaryGeneratedColumn('increment', {})
   id?: number;
 
@@ -23,7 +25,13 @@ export class PlayerEntity {
     nullable: false,
     default: 0,
   })
-  score?: number;
+  password?: string;
+
+  @OneToMany(
+    () => RefreshSessionEntity,
+    (refreshSession) => refreshSession.user,
+  )
+  sessions: RefreshSessionEntity[];
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt?: string;
